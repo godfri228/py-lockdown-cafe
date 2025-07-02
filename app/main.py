@@ -1,8 +1,9 @@
-from .cafe import Cafe
 from .errors import VaccineError, NotWearingMaskError
+from .cafe import Cafe
+from typing import List, Dict
 
 
-def go_to_cafe(friends, cafe):
+def go_to_cafe(friends: List[Dict], cafe: Cafe) -> str:
     """
     Function to check if friends can go to cafe together.
 

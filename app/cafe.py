@@ -1,15 +1,20 @@
 import datetime
-from .errors import NotVaccinatedError, OutdatedVaccineError, NotWearingMaskError
+from .errors import (
+    NotVaccinatedError,
+    OutdatedVaccineError,
+    NotWearingMaskError,
+)
+from typing import Dict
 
 
 class Cafe:
     """Cafe class for managing visitor access during pandemic."""
 
-    def __init__(self, name):
+    def __init__(self, name: str) -> None:
         """Initialize cafe with a name."""
         self.name = name
 
-    def visit_cafe(self, visitor):
+    def visit_cafe(self, visitor: Dict) -> str:
         """
         Check if visitor can enter the cafe.
 
