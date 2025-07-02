@@ -4,7 +4,7 @@ from .errors import (
     OutdatedVaccineError,
     NotWearingMaskError,
 )
-from typing import Dict
+from typing import Dict, Any
 
 
 class Cafe:
@@ -14,32 +14,24 @@ class Cafe:
         """Initialize cafe with a name."""
         self.name = name
 
-    def visit_cafe(self, visitor: Dict) -> str:
+    def visit_cafe(self, visitor: Dict[str, Any]) -> str:
         """
         Check if visitor can enter the cafe.
 
         Returns welcome message if visitor passes all checks.
         Raises appropriate exceptions if visitor fails checks.
         """
-        # Check if visitor is vaccinated
-        if (
-            "vaccine" not in visitor
-            or not isinstance(visitor["vaccine"], dict)
-        ):
+        # Validate vaccine info
+        vaccine_data = visitor.get("vaccine")
+        if not isinstance(vaccine_data, dict):
             raise NotVaccinatedError("Visitor must be vaccinated to enter")
 
-        vaccine_data = visitor["vaccine"]
-
-        # Check if expiration_date exists and is a valid date
         expiration_date = vaccine_data.get("expiration_date")
         if not isinstance(expiration_date, datetime.date):
-            raise OutdatedVaccineError(
-                "Invalid or missing expiration date"
-            )
+            raise OutdatedVaccineError("Invalid or missing expiration date")
 
         # Check if vaccine is not expired
-        current_date = datetime.date.today()
-        if expiration_date < current_date:
+        if expiration_date < datetime.date.today():
             raise OutdatedVaccineError("Visitor's vaccine is expired")
 
         # Check if visitor is wearing a mask
