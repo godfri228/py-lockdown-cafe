@@ -22,14 +22,19 @@ class Cafe:
         Raises appropriate exceptions if visitor fails checks.
         """
         # Check if visitor is vaccinated
-        if "vaccine" not in visitor:
+        if "vaccine" not in visitor or not isinstance(visitor["vaccine"], dict):
             raise NotVaccinatedError("Visitor must be vaccinated to enter")
 
-        # Check if vaccine is not expired
-        vaccine_expiration = visitor["vaccine"]["expiration_date"]
-        current_date = datetime.date.today()
+        vaccine_data = visitor["vaccine"]
 
-        if vaccine_expiration < current_date:
+        # Check if expiration_date exists and is a valid date
+        expiration_date = vaccine_data.get("expiration_date")
+        if not isinstance(expiration_date, datetime.date):
+            raise OutdatedVaccineError("Invalid or missing expiration date")
+
+        # Check if vaccine is not expired
+        current_date = datetime.date.today()
+        if expiration_date < current_date:
             raise OutdatedVaccineError("Visitor's vaccine is expired")
 
         # Check if visitor is wearing a mask
