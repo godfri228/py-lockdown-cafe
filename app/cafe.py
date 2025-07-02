@@ -30,7 +30,9 @@ class Cafe:
         # Check if expiration_date exists and is a valid date
         expiration_date = vaccine_data.get("expiration_date")
         if not isinstance(expiration_date, datetime.date):
-            raise OutdatedVaccineError("Invalid or missing expiration date")
+            raise OutdatedVaccineError(
+                "Invalid or missing expiration date"
+            )
 
         # Check if vaccine is not expired
         current_date = datetime.date.today()
