@@ -22,7 +22,10 @@ class Cafe:
         Raises appropriate exceptions if visitor fails checks.
         """
         # Check if visitor is vaccinated
-        if "vaccine" not in visitor or not isinstance(visitor["vaccine"], dict):
+        if (
+            "vaccine" not in visitor
+            or not isinstance(visitor["vaccine"], dict)
+        ):
             raise NotVaccinatedError("Visitor must be vaccinated to enter")
 
         vaccine_data = visitor["vaccine"]
