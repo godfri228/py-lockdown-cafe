@@ -21,7 +21,7 @@ class Cafe:
         Returns welcome message if visitor passes all checks.
         Raises appropriate exceptions if visitor fails checks.
         """
-        # Validate vaccine info
+        # Validate vaccine information
         vaccine_data = visitor.get("vaccine")
         if not isinstance(vaccine_data, dict):
             raise NotVaccinatedError("Visitor must be vaccinated to enter")
